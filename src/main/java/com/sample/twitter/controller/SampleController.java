@@ -22,19 +22,19 @@ public class SampleController {
 	@RequestMapping(value="/sample", method=RequestMethod.POST)
 	public String getFriendsSample(@RequestParam String accountName1, @RequestParam String accountName2, ModelMap modelMap) {
 		
-		List<User> friendList1 = sampleService.getFriends1(accountName1);
-		List<User> friendList2 = sampleService.getFriends2(accountName2);
+		List<String> friendList1 = sampleService.getFriends1(accountName1);
+		List<String> friendList2 = sampleService.getFriends2(accountName2);
 		
 		if (friendList1.isEmpty() && friendList2.isEmpty()) {
-			modelMap.put("errorMessage", "Unable to fetch details, please try after some time !!");
-		}
-		
-		List<String> mutualfriendList = sampleService.getMutualFriends(friendList1, friendList2);
-		
-		if (mutualfriendList.size() == 0) {
 			modelMap.put("friendList", "No mutual friends found !!");
 		} else {
-			modelMap.put("friendList", mutualfriendList);
+			List<String> mutualfriendList = sampleService.getMutualFriends(friendList1, friendList2);
+		
+			if (mutualfriendList.size() == 0) {
+				modelMap.put("friendList", "No mutual friends found !!");
+			} else {
+				modelMap.put("friendList", mutualfriendList);
+			}
 		}
 	   return "sample";
 	}

@@ -26,52 +26,41 @@ public class SampleService {
 			new User(5, "Akash", "aka")
 			);
 
-	public List<User> getFriends1(String name) {
-		
-		List<User> friendList = new ArrayList<User>();
+	public List<String> getFriends1(String name) {
+		List<String> friendList = new ArrayList<String>();
 		boolean nameExist = false;
-		
-		while (friendList1.iterator().hasNext()) {
-			if (friendList1.iterator().next().getName().equalsIgnoreCase(name)) {
+
+		for (User user : friendList1) {
+			friendList.add(user.getName());
+			if (user.getName().equalsIgnoreCase(name)) {
 				nameExist = true;
 			}
-			break;
 		}
-		
-		if (nameExist) {
-			friendList.addAll(friendList1);
+		if (!nameExist) {
+			friendList.clear();
 		}
 		return friendList;
 	}
 	
-	public List<User> getFriends2(String name) {
-		List<User> friendList = new ArrayList<User>();
+	public List<String> getFriends2(String name) {
+		List<String> friendList = new ArrayList<String>();
 		boolean nameExist = false;
-		
-		while (friendList2.iterator().hasNext()) {
-			if (friendList2.iterator().next().getName().equalsIgnoreCase(name)) {
+
+		for (User user : friendList2) {
+			friendList.add(user.getName());
+			if (user.getName().equalsIgnoreCase(name)) {
 				nameExist = true;
 			}
-			break;
 		}
-		
-		if (nameExist) {
-			friendList.addAll(friendList2);
+		if (!nameExist) {
+			friendList.clear();
 		}
 		return friendList;
 	}
 	
-	public List<String> getMutualFriends(List<User> friendList1, List<User> friendList2) {
-		List<String> mutualFriendList = new ArrayList<String>();
+	public List<String> getMutualFriends(List<String> friendList1, List<String> friendList2) {
+		friendList1.retainAll(friendList2);
 		
-		friendList1.forEach(user1->{
-			friendList2.forEach(user2->{
-				if (user1.getName().equals(user2.getName())) {
-					mutualFriendList.add(user1.getName());
-				}
-			});
-		});
-		
-		return mutualFriendList;
+		return friendList1;
 	}
 }
